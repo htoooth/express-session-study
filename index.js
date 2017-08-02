@@ -241,6 +241,7 @@ function session(options) {
       }
 
       // set cookie
+      // 这里在 cookie 中保存 sessionID
       setcookie(res, name, req.sessionID, secrets[0], req.session.cookie.data);
     });
 
@@ -258,6 +259,7 @@ function session(options) {
       var ret;
       var sync = true;
 
+      // 写入数据的后面的部分
       function writeend() {
         if (sync) {
           ret = _end.call(res, chunk, encoding);
@@ -268,6 +270,7 @@ function session(options) {
         _end.call(res);
       }
 
+      // 写入数据的前面的部分
       function writetop() {
         if (!sync) {
           return ret;
