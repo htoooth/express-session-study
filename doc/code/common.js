@@ -1,7 +1,5 @@
-const config = global.yoho.config;
-const session = require('yoho-express-session');
-const onHeaders = require('on-headers');
-const _ = require('lodash');
+const config = global.config;
+const session = require('express-session');
 
 /**
  * 该中间件主要把 express-session 和 client-session 集中起来处理，如果 memcached 出错了，使用 cookie session
@@ -37,10 +35,8 @@ module.exports = (backSession) => {
             writable: false
         });
 
-        onHeaders(res, function() {
-            // 备份数据
-            req[backSession].sessionBack = req.session;
-        });
+        // 备份数据
+        req[backSession].sessionBack = req.session;
 
         next();
     };
